@@ -9,18 +9,24 @@ int main() {
     cout << "Welcome to Blind Man's Bluff" << endl << endl;
     bool play, invalid, guessedHigher;
     string response;
-    int compValue, userValue, nWin = 0, nLoss = 0, nTie = 0;
+
+    int nWin = 0, nLoss = 0, nTie = 0, counter=0;
     srand(time(NULL));
+    Deck game;
+    Deck discard;
+    Card compValue, userValue;
+    game.shuffleDeck();
+
 
     play = true;
-    while(play) {
+    while(play==true && counter<26) {
         // assign values to computer and user
-        compValue = rand() % 52;
-        userValue = rand() % 52;
+        compValue = game.drawCard();
+        userValue = game.drawCard();
 
         // get user's bet
-        cout << "Computer's value is " << compValue << endl;
-        invalid = true;
+        cout << "Computer's value is " << compValue.printCard() << endl;
+        invalid=true;
         while(invalid) {
             cout << "Do you think your number is higher or lower? (H/L)" << endl;
             cin >> response;
@@ -40,17 +46,21 @@ int main() {
         }
 
         // determine outcome
-        if((compValue < userValue && guessedHigher) || (compValue > userValue && !guessedHigher)) {
+        if(((compValue < userValue) && guessedHigher) || ((userValue < compValue) && !guessedHigher)) {
             cout << "Great! You're right:" << endl;
             nWin++;
-        } else if((compValue > userValue && guessedHigher) || (compValue < userValue && !guessedHigher)) {
+        } else if(((userValue < compValue) && guessedHigher) || ((compValue < userValue) && !guessedHigher)) {
             cout << "Sorry, you're wrong:" << endl;
             nLoss++;
         } else {
             cout << "It's a tie:" << endl;
             nTie++;
         }
-        cout << "\tyour value is " << userValue << endl;
+        cout << "\tyour value is " << userValue.printCard() << endl;
+
+        //add cards to discard
+        discard.addCard(userValue);
+        discard.addCard(compValue);
 
         // ask user to play again
         invalid = true;
@@ -71,6 +81,7 @@ int main() {
                 invalid = true;
             }
         }
+        counter++;//counts how many times the game has been played
     }
 
     // output stats

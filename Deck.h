@@ -4,6 +4,16 @@
 #include "Card.h"
 
 class Deck {
+public:
+    Deck(int arraySize=52, int cardsLeft=0);
+    Deck(const Deck& list);
+    ~Deck();
+    void fillDeck();
+    void shuffleDeck();
+    Card drawCard();
+    bool addCard(Card newCard);
+    Deck& operator=(const Deck& rhs);
+
 
 private:
     Card* cards;
