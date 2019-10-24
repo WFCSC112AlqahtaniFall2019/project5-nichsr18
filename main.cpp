@@ -62,6 +62,7 @@ int main() {
         discard.addCard(userValue);
         discard.addCard(compValue);
 
+
         // ask user to play again
         invalid = true;
         while(invalid) {

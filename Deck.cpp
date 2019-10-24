@@ -66,7 +66,7 @@ Card Deck::drawCard() {
 }
 
 bool Deck::addCard(Card newCard) {
-    if(cardsLeft<arraySize){
+    if(cardsLeft>0){
         cards[cardsLeft]=newCard;
         return true;
     }else{
